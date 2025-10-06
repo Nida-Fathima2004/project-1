@@ -194,7 +194,7 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
+        <img src="WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Nida</h4>
         <p style="color:gray; margin:0;">Team Lead</p>
     </div>
@@ -212,7 +212,7 @@ with col2:
 with col3:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="100">
+        <img src="WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Rahul</h4>
         <p style="color:gray; margin:0;">Team Member</p>
     </div>
@@ -221,7 +221,7 @@ with col3:
 with col4:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
+        <img src="WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Prof. [Guide Name]</h4>
         <p style="color:gray; margin:0;">Project Guide</p>
     </div>
