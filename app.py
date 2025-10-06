@@ -237,7 +237,7 @@ guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 st.markdown(f"""
 <div class='guide-container'>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <img src='https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>Department of CSE(AI & ML)</p>
     </div>
@@ -268,7 +268,7 @@ team_html = f"""
         <p class='team-role'>4MC22CI019</p>
     </div>
     <div class='team-card'>
-        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140056.png' class='team-img'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
         <h4 class='team-name'>Pratham M. Jain</h4>
         <p class='team-role'>4MC22CI023</p>
     </div>
