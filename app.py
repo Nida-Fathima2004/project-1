@@ -207,7 +207,7 @@ if uploaded_file:
 
         buf = io.BytesIO()
         Image.fromarray(image_rgb).save(buf, format="JPEG")
-        st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
+        #st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
 # --- Centered and Styled Download Button ---
 st.markdown("""
 <style>
