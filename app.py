@@ -213,13 +213,14 @@ if uploaded_file:
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Guide</h3>", unsafe_allow_html=True)
 guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 st.markdown(f"""
-<div style='text-align:center; margin-top:20px;'>
+<div class='guide-container'>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>CSE Department, AI & ML</p>
     </div>
 </div>
+
 """, unsafe_allow_html=True)
 
 # --- Project Team Section ---
