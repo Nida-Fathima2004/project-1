@@ -18,7 +18,7 @@ st.set_page_config(page_title="TMJ Symmetry Detection", page_icon="🦷", layout
 # --- CSS for Header, Team Cards, Buttons ---
 st.markdown("""
 <style>
-/* Header */
+/* Header (no change) */
 .header {
     position: fixed;
     top: 0;
@@ -47,17 +47,28 @@ st.markdown("""
     font-weight: normal;
     color: #f0f0f0;
 }
-/* Team Cards */
+
+/* --- NEW Team Section Layout --- */
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;       /* Center overall */
+    gap: 30px;                     /* Space between cards */
+    margin-top: 20px;
+    max-width: 1200px;             /* Prevents too wide stretch */
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .team-card {
     background:white; 
     padding:20px; 
     border-radius:15px; 
-    width:180px; 
+    flex: 1 1 220px;               /* Flexible width: min 220px, grows up */
+    max-width: 250px;
     text-align:center; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
     transition: transform 0.3s;
-    margin: 10px;
-    display: inline-block;
 }
 .team-card:hover {
     transform: translateY(-5px);
@@ -79,12 +90,14 @@ st.markdown("""
     font-size: 14px;
     margin: 0;
 }
+
 /* Page Padding */
 .block-container {
     padding-top: 200px;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # --- Header ---
 college_logo = get_image_base64("Dept logo (2).png")
@@ -200,7 +213,7 @@ nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
 
 team_html = f"""
-<div style='text-align:center;'>
+<div class='team-container'>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{nida_img}' class='team-img'>
         <h4 class='team-name'>Nida</h4>
@@ -224,3 +237,4 @@ team_html = f"""
 </div>
 """
 st.markdown(team_html, unsafe_allow_html=True)
+
