@@ -217,7 +217,7 @@ st.markdown(f"""
     <div class='team-card'>
         <img src='https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
-        <p class='team-role'>CSE Department, AI & ML</p>
+        <p class='team-role'>Department of CSE(AI & ML)</p>
     </div>
 </div>
 
@@ -233,23 +233,23 @@ team_html = f"""
 <div class='team-container'>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{nida_img}' class='team-img'>
-        <h4 class='team-name'>Nida</h4>
-        <p class='team-role'>Team Lead</p>
+        <h4 class='team-name'>Anusha B. M</h4>
+        <p class='team-role'>4MC22CI003</p>
     </div>
     <div class='team-card'>
         <img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' class='team-img'>
-        <h4 class='team-name'>Ananya</h4>
-        <p class='team-role'>Team Member</p>
+        <h4 class='team-name'>Keerthana H. N.</h4>
+        <p class='team-role'>4MC22CI013</p>
     </div>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{rahul_img}' class='team-img'>
-        <h4 class='team-name'>Rahul</h4>
-        <p class='team-role'>Team Member</p>
+        <h4 class='team-name'>Nida Fathima</h4>
+        <p class='team-role'>4MC22CI019</p>
     </div>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
-        <h4 class='team-name'>Prof. [Guide Name]</h4>
-        <p class='team-role'>Project Guide</p>
+        <h4 class='team-name'>Pratham M. Jain</h4>
+        <p class='team-role'>4MC22CI023</p>
     </div>
 </div>
 """
