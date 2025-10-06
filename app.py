@@ -162,6 +162,28 @@ if uploaded_file:
             file_name="tmj_result.jpg",
             mime="image/jpeg"
         )
+
+# --- Project Guide Section ---
+st.markdown("""
+<hr style="border: 1px solid #ccc; margin: 40px 0;">
+<h3 style="text-align: center; color: #1e3c72; font-family: 'Playfair Display', serif;">
+    👨‍🏫 Project Guide
+</h3>
+""", unsafe_allow_html=True)
+
+col1 = st.columns(1)  # Single column for guide
+
+with col1[0]:
+    st.markdown("""
+    <div style="text-align:center;">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="120" style="border-radius:50%;">
+        <h4 style="margin-top:10px; color:#2a5298;">Prof. [Guide Name]</h4>
+        <p style="color:gray; margin:0;">CSE Department, AI & ML</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<hr style='border: 1px solid #ccc; margin-top:40px;'>", unsafe_allow_html=True)
+
 # --- Project Team Section ---
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin-top:40px;">
