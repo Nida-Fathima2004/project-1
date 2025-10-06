@@ -163,6 +163,10 @@ if uploaded_file:
             mime="image/jpeg"
         )
 # --- Project Team Section ---
+st.markdown("""
+<hr style="border: 1px solid #ccc; margin-top:40px;">
+""", unsafe_allow_html=True)
+
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>👩‍💻 Project Team</h3>", unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
