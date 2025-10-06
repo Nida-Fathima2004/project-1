@@ -237,7 +237,7 @@ guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 st.markdown(f"""
 <div class='guide-container'>
     <div class='team-card'>
-        <img src='https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png' class='team-img'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>Department of CSE(AI & ML)</p>
     </div>
@@ -251,33 +251,27 @@ nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
 
 team_html = f"""
-<div class='team-container' style="display:flex; flex-wrap:wrap; justify-content:center; gap:40px;">
-
-    <div class='team-card' style="text-align:center;">
+<div class='team-container'>
+    <div class='team-card'>
         <img src='data:image/jpeg;base64,{nida_img}' class='team-img'>
-        <h4 style="text-align:center;">Anusha B. M</h4>
-        <p style="text-align:center;">4MC22CI003</p>
+        <h4 class='team-name'>Anusha B. M</h4>
+        <p class='team-role'>4MC22CI003</p>
     </div>
-
-    <div class='team-card' style="text-align:center;">
+    <div class='team-card'>
         <img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' class='team-img'>
-        <h4 style="text-align:center;">Keerthana H. N.</h4>
-        <p style="text-align:center;">4MC22CI013</p>
+        <h4 class='team-name'>Keerthana H. N.</h4>
+        <p class='team-role'>4MC22CI013</p>
     </div>
-
-    <div class='team-card' style="text-align:center;">
+    <div class='team-card'>
         <img src='data:image/jpeg;base64,{rahul_img}' class='team-img'>
-        <h4 style="text-align:center;">Nida Fathima</h4>
-        <p style="text-align:center;">4MC22CI019</p>
+        <h4 class='team-name'>Nida Fathima</h4>
+        <p class='team-role'>4MC22CI019</p>
     </div>
-
-    <div class='team-card' style="text-align:center;">
-        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
-        <h4 style="text-align:center;">Pratham M. Jain</h4>
-        <p style="text-align:center;">4MC22CI023</p>
+    <div class='team-card'>
+        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140056.png' class='team-img'>
+        <h4 class='team-name'>Pratham M. Jain</h4>
+        <p class='team-role'>4MC22CI023</p>
     </div>
-
 </div>
-
 """
 st.markdown(team_html, unsafe_allow_html=True)
