@@ -6,6 +6,42 @@ from PIL import Image
 import io
 import base64
 
+# --- Beautiful Team Card Example ---
+import base64
+from PIL import Image
+
+def get_image_base64(image_path):
+    with open(image_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# Load local image
+nida_img_base64 = get_image_base64("/mnt/data/a9296cd9-a2c5-467e-918d-e5d58b77788c.png")
+
+st.markdown("""
+<h3 style="text-align:center; color:#1e3c72; font-family: 'Playfair Display', serif; margin-top:40px;">
+    Project Team
+</h3>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:30px;">
+    <div style="background:white; padding:20px; border-radius:15px; width:180px; text-align:center; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s;">
+        <img src="data:image/png;base64,{nida_img_base64}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        <h4 style="margin:10px 0 5px 0; color:#2a5298; font-family: 'Playfair Display', serif;">Nida</h4>
+        <p style="color:gray; margin:0; font-size:14px;">Team Lead</p>
+    </div>
+</div>
+
+<style>
+div div:hover {
+    transform: translateY(-5px);
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # --- Page Setup ---
 st.set_page_config(page_title="TMJ Symmetry Detection", page_icon="🦷", layout="wide")
 
