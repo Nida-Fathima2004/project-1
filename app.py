@@ -48,46 +48,51 @@ st.markdown("""
     color: #f0f0f0;
 }
 
-/* --- NEW Team Section Layout --- */
+/* --- Responsive Team Section --- */
 .team-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;       /* Center overall */
-    gap: 30px;                     /* Space between cards */
-    margin-top: 20px;
-    max-width: 1200px;             /* Prevents too wide stretch */
+    justify-content: center;
+    gap: 40px;                    /* More spacing between cards */
+    margin-top: 30px;
+    max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .team-card {
-    background:white; 
-    padding:20px; 
-    border-radius:15px; 
-    flex: 1 1 220px;               /* Flexible width: min 220px, grows up */
-    max-width: 250px;
-    text-align:center; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-    transition: transform 0.3s;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    flex: 1 1 240px;              /* Slightly larger flexible cards */
+    max-width: 280px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 .team-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
+
 .team-img {
-    width:100px; 
-    height:100px; 
-    border-radius:50%; 
-    object-fit:cover; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 140px; 
+    height: 140px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+
 .team-name {
-    margin: 10px 0 5px 0;
+    margin: 12px 0 6px 0;
     color: #2a5298;
     font-family: 'Playfair Display', serif;
+    font-size: 18px;
 }
 .team-role {
     color: gray;
-    font-size: 14px;
+    font-size: 15px;
     margin: 0;
 }
 
@@ -97,6 +102,7 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # --- Header ---
