@@ -18,7 +18,7 @@ st.set_page_config(page_title="TMJ Symmetry Detection", page_icon="🦷", layout
 # --- CSS for Header, Team Cards, Buttons ---
 st.markdown("""
 <style>
-/* Header (no change) */
+/* Header */
 .header {
     position: fixed;
     top: 0;
@@ -53,7 +53,7 @@ st.markdown("""
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;                    /* More spacing between cards */
+    gap: 40px;
     margin-top: 30px;
     max-width: 1300px;
     margin-left: auto;
@@ -64,7 +64,7 @@ st.markdown("""
     background: white;
     padding: 25px;
     border-radius: 20px;
-    flex: 1 1 240px;              /* Slightly larger flexible cards */
+    flex: 1 1 240px;
     max-width: 280px;
     text-align: center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
@@ -76,8 +76,8 @@ st.markdown("""
 }
 
 .team-img {
-    width: 140px; 
-    height: 140px; 
+    width: 160px; 
+    height: 160px; 
     border-radius: 50%; 
     object-fit: cover;
     margin-bottom: 10px;
@@ -96,24 +96,43 @@ st.markdown("""
     margin: 0;
 }
 
+/* Center alignment for Project Guide */
+.guide-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* Download button styling */
+.download-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+div.stDownloadButton > button:first-child {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    border-radius: 12px;
+    padding: 12px 32px;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+div.stDownloadButton > button:first-child:hover {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(42, 82, 152, 0.6);
+}
+
 /* Page Padding */
 .block-container {
     padding-top: 200px;
 }
 </style>
 """, unsafe_allow_html=True)
-st.markdown("""
-<style>
-/* Center alignment only for Project Guide section */
-.guide-container {
-    display: flex;
-    justify-content: center;   /* Horizontally center */
-    margin-top: 25px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
 
 # --- Header ---
 college_logo = get_image_base64("Dept logo (2).png")
@@ -134,7 +153,7 @@ st.markdown("<h2 style='text-align:center;'>🦷 TMJ Symmetry Detection</h2>", u
 # --- Load YOLO Model ---
 @st.cache_resource
 def load_model():
-    return YOLO("best.pt")   # Make sure model file is in root folder
+    return YOLO("best.pt")
 
 model = load_model()
 
@@ -158,7 +177,6 @@ if uploaded_file:
         boxes = sorted(boxes, key=lambda b: b[0])
         left_box, right_box = boxes[0], boxes[1]
 
-        # Center & size
         left_cx = (left_box[0] + left_box[2]) / 2
         right_cx = (right_box[0] + right_box[2]) / 2
         left_w, right_w = left_box[2]-left_box[0], right_box[2]-right_box[0]
@@ -168,13 +186,11 @@ if uploaded_file:
         left_distance = abs(left_cx - image_center_x)
         right_distance = abs(right_cx - image_center_x)
 
-        # Symmetry
         symmetry_error = abs(left_distance - right_distance)
         asymmetry_percent = (symmetry_error / image_center_x) * 100
         width_diff = abs(left_w - right_w) / max(left_w, right_w) * 100
         height_diff = abs(left_h - right_h) / max(left_h, right_h) * 100
 
-        # Draw Boxes
         for box, label in zip([left_box, right_box], ['Left', 'Right']):
             x1, y1, x2, y2 = map(int, box)
             cv2.rectangle(processed_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
@@ -202,49 +218,18 @@ if uploaded_file:
             """
         st.markdown(status_html, unsafe_allow_html=True)
 
+        # Display Processed Image
         image_rgb = cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB)
         st.image(image_rgb, caption="Processed Image", use_container_width=True)
 
+        # Prepare Download Button
         buf = io.BytesIO()
         Image.fromarray(image_rgb).save(buf, format="JPEG")
-        #st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
-# --- Centered and Styled Download Button ---
-# --- Centered and Styled Download Button ---
-st.markdown("""
-<style>
-.download-btn-container {
-    display: flex;
-    justify-content: center;      /* Centers the button horizontally */
-    margin-top: 25px;
-}
+        buf.seek(0)
 
-/* Style the actual button */
-div.stDownloadButton > button:first-child {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    border-radius: 12px;
-    padding: 12px 32px;
-    font-size: 17px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
-    transition: all 0.3s ease-in-out;
-}
-
-/* Hover animation */
-div.stDownloadButton > button:first-child:hover {
-    background: linear-gradient(135deg, #2a5298, #1e3c72);
-    transform: scale(1.08);
-    box-shadow: 0 6px 18px rgba(42, 82, 152, 0.6);
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Wrap the button in a flexbox container for perfect centering
-st.markdown("<div class='download-btn-container'>", unsafe_allow_html=True)
-st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
-st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("<div class='download-btn-container'>", unsafe_allow_html=True)
+        st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Project Guide Section ---
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Guide</h3>", unsafe_allow_html=True)
@@ -252,12 +237,11 @@ guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 st.markdown(f"""
 <div class='guide-container'>
     <div class='team-card'>
-        <img src='https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png' class='team-img'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>Department of CSE(AI & ML)</p>
     </div>
 </div>
-
 """, unsafe_allow_html=True)
 
 # --- Project Team Section ---
@@ -284,11 +268,10 @@ team_html = f"""
         <p class='team-role'>4MC22CI019</p>
     </div>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140056.png' class='team-img'>
         <h4 class='team-name'>Pratham M. Jain</h4>
         <p class='team-role'>4MC22CI023</p>
     </div>
 </div>
 """
 st.markdown(team_html, unsafe_allow_html=True)
-
