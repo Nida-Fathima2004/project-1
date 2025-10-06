@@ -167,7 +167,7 @@ if uploaded_file:
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin: 40px 0;">
 <h3 style="text-align: center; color: #1e3c72; font-family: 'Playfair Display', serif;">
-    👨‍🏫 Project Guide
+    Project Guide
 </h3>
 """, unsafe_allow_html=True)
 
@@ -189,7 +189,7 @@ st.markdown("""
 <hr style="border: 1px solid #ccc; margin-top:40px;">
 """, unsafe_allow_html=True)
 
-st.markdown("<h3 style='text-align:center; color:#1e3c72;'>👩‍💻 Project Team</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
