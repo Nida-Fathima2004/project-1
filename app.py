@@ -6,40 +6,87 @@ from PIL import Image
 import io
 import base64
 
-# --- Beautiful Team Card Example ---
+import streamlit as st
 import base64
-from PIL import Image
 
+# --- Helper to encode images to base64 ---
 def get_image_base64(image_path):
     with open(image_path, "rb") as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Load local image
-nida_img_base64 = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
+# --- Team Images ---
+nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
+rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
+guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 
+# --- CSS for team cards ---
 st.markdown("""
-<h3 style="text-align:center; color:#1e3c72; font-family: 'Playfair Display', serif; margin-top:40px;">
-    Project Team
-</h3>
-""", unsafe_allow_html=True)
-
-st.markdown(f"""
-<div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:30px;">
-    <div style="background:white; padding:20px; border-radius:15px; width:180px; text-align:center; 
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s;">
-        <img src="data:image/png;base64,{nida_img_base64}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-        <h4 style="margin:10px 0 5px 0; color:#2a5298; font-family: 'Playfair Display', serif;">Nida</h4>
-        <p style="color:gray; margin:0; font-size:14px;">Team Lead</p>
-    </div>
-</div>
-
 <style>
-div div:hover {
+.team-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    margin: 10px;
+    display: inline-block;
+}
+.team-card:hover {
     transform: translateY(-5px);
+}
+.team-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.team-name {
+    margin: 10px 0 5px 0;
+    color: #2a5298;
+    font-family: 'Playfair Display', serif;
+}
+.team-role {
+    color: gray;
+    font-size: 14px;
+    margin: 0;
 }
 </style>
 """, unsafe_allow_html=True)
+
+# --- Team Section ---
+st.markdown("<h3 style='text-align:center; color:#1e3c72; font-family:Playfair Display;'>Project Team</h3>", unsafe_allow_html=True)
+
+team_html = f"""
+<div style='text-align:center;'>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{nida_img}' class='team-img'>
+        <h4 class='team-name'>Nida</h4>
+        <p class='team-role'>Team Lead</p>
+    </div>
+    <div class='team-card'>
+        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' class='team-img'>
+        <h4 class='team-name'>Ananya</h4>
+        <p class='team-role'>Team Member</p>
+    </div>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{rahul_img}' class='team-img'>
+        <h4 class='team-name'>Rahul</h4>
+        <p class='team-role'>Team Member</p>
+    </div>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <h4 class='team-name'>Prof. [Guide Name]</h4>
+        <p class='team-role'>Project Guide</p>
+    </div>
+</div>
+"""
+
+st.markdown(team_html, unsafe_allow_html=True)
+
 
 
 # --- Page Setup ---
