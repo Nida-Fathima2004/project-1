@@ -208,6 +208,39 @@ if uploaded_file:
         buf = io.BytesIO()
         Image.fromarray(image_rgb).save(buf, format="JPEG")
         st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
+# --- Centered and Styled Download Button ---
+st.markdown("""
+<style>
+.download-btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+div.stDownloadButton > button:first-child {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(30, 60, 114, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+div.stDownloadButton > button:first-child:hover {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    transform: scale(1.07);
+    box-shadow: 0 6px 18px rgba(42, 82, 152, 0.6);
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Center the button under the processed image
+st.markdown("<div class='download-btn-container'>", unsafe_allow_html=True)
+st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
+st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Project Guide Section ---
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Guide</h3>", unsafe_allow_html=True)
