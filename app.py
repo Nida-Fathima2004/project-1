@@ -166,32 +166,28 @@ st.markdown(f"""
 st.markdown("<hr><h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
 nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
-guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 
-# Team Section
-st.markdown("""
-<hr style="border:1px solid #ccc; margin-top:40px;">
-<h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>
-<div style='display:flex; justify-content:space-around; flex-wrap:wrap; margin-top:20px;'>
-""", unsafe_allow_html=True)
-
-# Individual Team Cards
-team_members = [
-    {"name": "Nida", "role": "Team Lead", "img": nida_img},
-    {"name": "Ananya", "role": "Team Member", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"},
-    {"name": "Rahul", "role": "Team Member", "img": rahul_img},
-    {"name": "Prof. [Guide Name]", "role": "Project Guide", "img": guide_img},
-]
-
-for member in team_members:
-    st.markdown(f"""
+st.markdown(f"""
+<div style='text-align:center;'>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{member['img']}' class='team-img'>
-        <h4 class='team-name'>{member['name']}</h4>
-        <p class='team-role'>{member['role']}</p>
+        <img src='data:image/jpeg;base64,{nida_img}' class='team-img'>
+        <h4 class='team-name'>Nida</h4>
+        <p class='team-role'>Team Lead</p>
     </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
+    <div class='team-card'>
+        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' class='team-img'>
+        <h4 class='team-name'>Ananya</h4>
+        <p class='team-role'>Team Member</p>
+    </div>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{rahul_img}' class='team-img'>
+        <h4 class='team-name'>Rahul</h4>
+        <p class='team-role'>Team Member</p>
+    </div>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <h4 class='team-name'>Prof. [Guide Name]</h4>
+        <p class='team-role'>Project Guide</p>
+    </div>
+</div>
 """, unsafe_allow_html=True)
