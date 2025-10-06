@@ -102,6 +102,16 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* Center alignment only for Project Guide section */
+.guide-container {
+    display: flex;
+    justify-content: center;   /* Horizontally center */
+    margin-top: 25px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 
