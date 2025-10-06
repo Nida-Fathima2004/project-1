@@ -163,39 +163,34 @@ if uploaded_file:
             mime="image/jpeg"
         )
 # --- Project Team Section ---
-st.markdown("""
-<hr style="border: 1px solid #ccc; margin: 40px 0;">
-<h3 style="text-align: center; color: #1e3c72; font-family: 'Playfair Display', serif;">
-    👩‍💻 Project Team
-</h3>
-""", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'>👩‍💻 Project Team</h3>", unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="100">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Nida</h4>
-        <p style="color:gray; margin:0;">AI/ML Engineer</p>
+        <p style="color:gray; margin:0;">Team Lead</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140061.png" width="100">
-        <h4 style="margin-top:10px; color:#2a5298;">[Teammate Name]</h4>
-        <p style="color:gray; margin:0;">Developer</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="100">
+        <h4 style="margin-top:10px; color:#2a5298;">Ananya</h4>
+        <p style="color:gray; margin:0;">Team Member</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
-        <h4 style="margin-top:10px; color:#2a5298;">[Guide/Faculty Name]</h4>
-        <p style="color:gray; margin:0;">Project Guide</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="100">
+        <h4 style="margin-top:10px; color:#2a5298;">Rahul</h4>
+        <p style="color:gray; margin:0;">Team Member</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -203,10 +198,11 @@ with col4:
     st.markdown("""
     <div style="text-align:center;">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
-        <h4 style="margin-top:10px; color:#2a5298;">[Guide/Faculty Name]</h4>
+        <h4 style="margin-top:10px; color:#2a5298;">Prof. [Guide Name]</h4>
         <p style="color:gray; margin:0;">Project Guide</p>
     </div>
     """, unsafe_allow_html=True)
+
 
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin-top:40px;">
