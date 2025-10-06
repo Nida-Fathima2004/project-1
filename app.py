@@ -163,7 +163,7 @@ if uploaded_file:
             mime="image/jpeg"
         )
 
-# --- Project Guide Section ---
+# --- Project Guide Section (Styled like Project Team) ---
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin: 40px 0;">
 <h3 style="text-align: center; color: #1e3c72; font-family: 'Playfair Display', serif;">
@@ -171,13 +171,17 @@ st.markdown("""
 </h3>
 """, unsafe_allow_html=True)
 
-col1 = st.columns(1)  # Single column for guide
+col1, col2, col3, col4 = st.columns(4)  # Reuse columns to match spacing
 
-with col1[0]:
+# Fill first three columns with empty placeholders for centering
+for col in [col1, col2, col3]:
+    col.write("")
+
+with col4:
     st.markdown("""
     <div style="text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="120" style="border-radius:50%;">
-        <h4 style="margin-top:10px; color:#2a5298;">Prof. [Guide Name]</h4>
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100" style="border-radius:50%; margin-bottom:10px;">
+        <h4 style="margin:0; color:#2a5298;">Prof. [Guide Name]</h4>
         <p style="color:gray; margin:0;">CSE Department, AI & ML</p>
     </div>
     """, unsafe_allow_html=True)
