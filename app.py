@@ -16,7 +16,7 @@ def get_image_base64(image_path):
     return base64.b64encode(data).decode()
 
 # Load local image
-nida_img_base64 = get_image_base64("/mnt/data/a9296cd9-a2c5-467e-918d-e5d58b77788c.png")
+nida_img_base64 = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 
 st.markdown("""
 <h3 style="text-align:center; color:#1e3c72; font-family: 'Playfair Display', serif; margin-top:40px;">
