@@ -199,6 +199,15 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
+with col4:
+    st.markdown("""
+    <div style="text-align:center;">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100">
+        <h4 style="margin-top:10px; color:#2a5298;">[Guide/Faculty Name]</h4>
+        <p style="color:gray; margin:0;">Project Guide</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin-top:40px;">
 """, unsafe_allow_html=True)
