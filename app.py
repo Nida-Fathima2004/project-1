@@ -163,7 +163,16 @@ if uploaded_file:
             mime="image/jpeg"
         )
 
-# --- Project Guide Section (Centered, Same Style as Project Team) ---
+import streamlit as st
+import base64
+
+# --- Helper to encode local images to base64 ---
+def get_image_base64(image_path):
+    with open(image_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# --- Project Guide Section ---
 st.markdown("""
 <hr style="border: 1px solid #ccc; margin: 40px 0;">
 <h3 style="text-align: center; color: #1e3c72; font-family: 'Playfair Display', serif;">
@@ -171,10 +180,12 @@ st.markdown("""
 </h3>
 """, unsafe_allow_html=True)
 
-st.markdown("""
+guide_img_base64 = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
+
+st.markdown(f"""
 <div style="display:flex; justify-content:center; margin-top:20px;">
     <div style="text-align:center; margin:0 20px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" width="100" style="border-radius:50%; margin-bottom:10px;">
+        <img src="data:image/jpeg;base64,{guide_img_base64}" width="100" style="border-radius:50%; margin-bottom:10px;">
         <h4 style="margin:0; color:#2a5298;">Prof. [Guide Name]</h4>
         <p style="color:gray; margin:0;">CSE Department, AI & ML</p>
     </div>
@@ -191,15 +202,18 @@ st.markdown("<h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", u
 
 col1, col2, col3, col4 = st.columns(4)
 
+# Team Member 1
+nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 with col1:
-    st.markdown("""
+    st.markdown(f"""
     <div style="text-align:center;">
-        <img src="WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg" width="100">
+        <img src="data:image/jpeg;base64,{nida_img}" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Nida</h4>
         <p style="color:gray; margin:0;">Team Lead</p>
     </div>
     """, unsafe_allow_html=True)
 
+# Team Member 2 (External URL image)
 with col2:
     st.markdown("""
     <div style="text-align:center;">
@@ -209,23 +223,27 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
+# Team Member 3
+rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
 with col3:
-    st.markdown("""
+    st.markdown(f"""
     <div style="text-align:center;">
-        <img src="WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg" width="100">
+        <img src="data:image/jpeg;base64,{rahul_img}" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Rahul</h4>
         <p style="color:gray; margin:0;">Team Member</p>
     </div>
     """, unsafe_allow_html=True)
 
+# Optional: Include guide again in the team section as the 4th column
 with col4:
-    st.markdown("""
+    st.markdown(f"""
     <div style="text-align:center;">
-        <img src="WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg" width="100">
+        <img src="data:image/jpeg;base64,{guide_img_base64}" width="100">
         <h4 style="margin-top:10px; color:#2a5298;">Prof. [Guide Name]</h4>
         <p style="color:gray; margin:0;">Project Guide</p>
     </div>
     """, unsafe_allow_html=True)
+
 
 
 st.markdown("""
