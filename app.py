@@ -181,8 +181,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<hr style='border: 1px solid #ccc; margin-top:40px;'>", unsafe_allow_html=True)
-
 
 # --- Project Team Section ---
 st.markdown("""
