@@ -194,9 +194,7 @@ with outer_cols[1]:
         <div style="text-align:justify; font-size:16px; line-height:1.7; color:#333;">
             <p><strong>Temporomandibular Joint Disorder (TMJ Disorder)</strong> affects the joint connecting your jawbone to your skull.
             It can cause pain, stiffness, and difficulty in jaw movement. The disorder often arises from injury, arthritis,
-            or jaw misalignment, leading to <strong>asymmetry</strong> between the left and right joints.</p>
-
-            <p>Early detection of asymmetry using AI and image processing (like this project) can help identify
+            or jaw misalignment, leading to <strong>asymmetry</strong> between the left and right joints.<br> Early detection of asymmetry using AI and image processing (like this project) can help identify
             conditions such as <strong>Temporomandibular Joint Osteoarthritis (TMJOA)</strong> at an earlier stage,
             improving treatment outcomes and preventing long-term complications.</p>
         </div>
