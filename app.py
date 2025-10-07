@@ -378,6 +378,37 @@ if st.button("🤖 Generate AI Report"):
             st.error("❌ Failed to generate report after multiple attempts. Please try again later.")
 
 
+import streamlit as st
+import base64
+
+# --- Helper to encode images to base64 ---
+def get_image_base64(image_path):
+    with open(image_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# --- Team Images ---
+nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
+rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
+guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
+st.markdown("""
+<style>
+/* Center alignment only for Project Guide section */
+.guide-container {
+    display: flex;
+    justify-content: center;   /* Horizontally center */
+    margin-top: 25px;
+}
+</style>
+""", unsafe_allow_html=True)
+<div class='guide-container'>
+    <div class='team-card'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <h4 class='team-name'>Prof. [Guide Name]</h4>
+        <p class='team-role'>CSE Department, AI & ML</p>
+    </div>
+</div>
+
 # --- Project Team Section ---
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
 
