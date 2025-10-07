@@ -167,7 +167,7 @@ disease_img = get_image_base64("tmj_disease_image.jpg")  # Replace with your ima
 disease_html = f"""
 <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
     #data:image/jpeg;base64,{disease_img}
-    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXK09n_HAe3RCNWpNND8JVNqAupH_TmnM8fg&s' 
+    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHkZlDqwXvuI1ynhjA46w8jPuAijdhQR1owA&s' 
          style="width:350px; height:auto; border-radius:15px; margin:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
     
     <div style="max-width:600px; text-align:justify; margin:15px; font-size:17px; line-height:1.6; color:#333;">
