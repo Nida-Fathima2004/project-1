@@ -160,20 +160,30 @@ model = load_model()
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
 
-disease_img = get_image_base64("condylar bone.jpg")  # or your local image file
+# Example image (you can replace with your own or a local base64 image)
+disease_html = """
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; 
+            margin-top: 30px; padding: 20px; border-radius: 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); background-color: #f9faff;">
 
-disease_html = f"""
-<div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
-   
-    <img src='data:image/png;base64,{disease_img}' 
-         style="width:350px; height:auto; border-radius:15px; margin:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-    
-    <div style="max-width:600px; text-align:justify; margin:15px; font-size:17px; line-height:1.6; color:#333;">
+    <div style="flex: 1; min-width: 300px; text-align: center;">
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s' 
+             style="width: 90%; max-width: 350px; height: auto; border-radius: 15px; 
+                    margin: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+    </div>
+
+    <div style="flex: 1; min-width: 300px; margin: 10px; text-align: justify; 
+                font-size: 17px; line-height: 1.7; color: #333;">
         <p>
-            <b>Temporomandibular Joint Disorder (TMJ Disorder)</b> affects the joint connecting your jawbone to your skull.
-            It can cause pain, stiffness, and difficulty in jaw movement. The disorder often arises from injury, arthritis,
-            or jaw misalignment, leading to <b>asymmetry</b> between the left and right joints. 
-            Detecting this asymmetry early using AI and image processing can help prevent long-term complications.
+            <b>Temporomandibular Joint Disorder (TMJ Disorder)</b> affects the joint connecting your jawbone 
+            to your skull. It can cause pain, stiffness, and difficulty in jaw movement. 
+            The disorder often arises from injury, arthritis, or jaw misalignment, leading 
+            to <b>asymmetry</b> between the left and right joints. 
+        </p>
+        <p>
+            Detecting this asymmetry early using <b>AI and image processing</b> can help 
+            identify <b>Temporomandibular Joint Osteoarthritis (TMJOA)</b> in its initial stages, 
+            preventing long-term complications and improving treatment outcomes.
         </p>
     </div>
 </div>
