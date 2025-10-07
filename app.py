@@ -309,7 +309,7 @@ guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 guide_html = f"""
 <div class='guide-container'>
     <div class='team-card'>
-        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6rKwDbEN_M9FCcve-ozbDkUUn6VkEZ7xfVw&s' class='team-img'>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkXMn8gfM1nVj_jMD8_dBTb_xY5Utgp2t28Q&s' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>CSE Department, AI & ML</p>
     </div>
