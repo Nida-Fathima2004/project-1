@@ -284,47 +284,93 @@ import streamlit as st
 from openai import OpenAI  # or use other LLMs if preferred
 
 # --- AI Report Section ---
-import requests
 import streamlit as st
+import requests
+import time
 
+# -------------------------------
+# Hugging Face Secure API Setup
+# -------------------------------
 try:
     hf_token = st.secrets["HF_TOKEN"]
 except KeyError:
-    st.error("⚠️ Please add HF_TOKEN in Streamlit Cloud → Edit secrets.")
+    st.error("🚨 Hugging Face API key not found! Please add it in Streamlit Cloud → Manage App → Edit secrets.")
     st.stop()
 
-headers = {"Authorization": f"Bearer {hf_token}"}
 API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
+headers = {"Authorization": f"Bearer {hf_token}"}
+
+# -------------------------------
+# Example TMJ analysis data
+# -------------------------------
+asymmetry_percent = 12.5
+height_diff = 2.3
+width_diff = 1.8
+
+st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'>🧠 AI-Generated Diagnostic Report</h3>", unsafe_allow_html=True)
+
+st.write(f"**Asymmetry Percentage:** {asymmetry_percent}%")
+st.write(f"**Height Difference:** {height_diff} mm")
+st.write(f"**Width Difference:** {width_diff} mm")
 
 prompt = f"""
-Generate a diagnostic-style report for the following TMJ asymmetry data:
+You are an AI medical assistant. Based on the following TMJ asymmetry analysis,
+generate a short diagnostic-style report suitable for a clinical setting.
 
-- Asymmetry Percentage: 12.5%
-- Height Difference: 2.3 mm
-- Width Difference: 1.8 mm
+Findings:
+- Asymmetry Percentage: {asymmetry_percent}%
+- Height Difference: {height_diff} mm
+- Width Difference: {width_diff} mm
+
+Include:
+- Summary of findings
+- Possible causes (brief)
+- Clinical significance
+- Recommendations or next steps
 """
 
-if st.button("🤖 Generate Report with Hugging Face"):
-    with st.spinner("Generating report..."):
+# -------------------------------
+# Generate button
+# -------------------------------
+if st.button("🤖 Generate AI Report"):
+    with st.spinner("Generating report using Hugging Face model..."):
         payload = {"inputs": prompt}
-        response = requests.post(API_URL, headers=headers, json=payload)
-        report = response.json()[0]["generated_text"]
-        st.success("✅ Report Generated!")
-        st.markdown(report)
 
+        # Try up to 3 times (to handle "Model is loading" state)
+        for attempt in range(3):
+            response = requests.post(API_URL, headers=headers, json=payload)
+            
+            try:
+                data = response.json()
+            except Exception:
+                st.error("⚠️ Could not decode Hugging Face response.")
+                st.text(response.text)
+                st.stop()
 
-# --- Project Guide Section ---
-st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Guide</h3>", unsafe_allow_html=True)
-guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
-st.markdown(f"""
-<div class='guide-container'>
-    <div class='team-card'>
-        <img src='https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png' class='team-img'>
-        <h4 class='team-name'>Prof. [Guide Name]</h4>
-        <p class='team-role'>Department of CSE(AI & ML)</p>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+            # Model is loading (Hugging Face sometimes returns this message)
+            if isinstance(data, dict) and "error" in data and "loading" in data["error"].lower():
+                st.info("🕐 Model is loading on Hugging Face... waiting 10 seconds.")
+                time.sleep(10)
+                continue
+
+            # Successful response
+            if isinstance(data, list) and "generated_text" in data[0]:
+                report = data[0]["generated_text"]
+                st.success("✅ Report Generated Successfully!")
+                st.markdown(
+                    f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
+                    unsafe_allow_html=True
+                )
+                break
+            else:
+                # Unexpected structure or no text returned
+                st.error("⚠️ Unexpected API response format.")
+                st.text(response.text)
+                break
+        else:
+            st.error("❌ Model did not respond after several attempts.")
+
 
 # --- Project Team Section ---
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
