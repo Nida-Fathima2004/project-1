@@ -159,6 +159,7 @@ model = load_model()
 
 import os
 from PIL import Image
+import streamlit as st
 
 # --- About the Disease (reliable Streamlit layout using columns) ---
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
@@ -173,7 +174,7 @@ pil_img = None
 if os.path.exists(local_img_path):
     try:
         pil_img = Image.open(local_img_path)
-    except Exception as e:
+    except Exception:
         pil_img = None
 
 # Create a centered outer container (adds side margins)
@@ -184,10 +185,9 @@ with outer_cols[1]:
 
     with left_col:
         if pil_img:
-            # width will adapt to column size and remain responsive
-            st.image(pil_img, use_column_width=True)
+            st.image(pil_img, use_container_width=True)  # ✅ updated parameter
         else:
-            st.image(fallback_url, use_column_width=True)
+            st.image(fallback_url, use_container_width=True)  # ✅ updated parameter
 
     with right_col:
         text_html = """
@@ -202,6 +202,7 @@ with outer_cols[1]:
         </div>
         """
         st.markdown(text_html, unsafe_allow_html=True)
+
 
 
 
