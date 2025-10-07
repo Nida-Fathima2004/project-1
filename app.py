@@ -284,51 +284,33 @@ import streamlit as st
 from openai import OpenAI  # or use other LLMs if preferred
 
 # --- AI Report Section ---
-st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align:center; color:#1e3c72;'>AI-Generated Diagnostic Report</h3>", unsafe_allow_html=True)
+import requests
+import streamlit as st
 
-# Suppose your previous analysis produced these values:
-asymmetry_percent = 12.5  # example
-height_diff = 2.3
-width_diff = 1.8
+try:
+    hf_token = st.secrets["HF_TOKEN"]
+except KeyError:
+    st.error("⚠️ Please add HF_TOKEN in Streamlit Cloud → Edit secrets.")
+    st.stop()
 
-# Show results first
-st.write(f"**Asymmetry Percentage:** {asymmetry_percent}%")
-st.write(f"**Height Difference:** {height_diff} mm")
-st.write(f"**Width Difference:** {width_diff} mm")
+headers = {"Authorization": f"Bearer {hf_token}"}
+API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
 
-# Add a button to generate the report
-if st.button("🧠 Generate AI Report"):
+prompt = f"""
+Generate a diagnostic-style report for the following TMJ asymmetry data:
+
+- Asymmetry Percentage: 12.5%
+- Height Difference: 2.3 mm
+- Width Difference: 1.8 mm
+"""
+
+if st.button("🤖 Generate Report with Hugging Face"):
     with st.spinner("Generating report..."):
-        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])  # ensure your key is in .streamlit/secrets.toml
-        
-        # Construct a prompt
-        prompt = f"""
-        You are an expert medical AI assistant. Based on the following jaw asymmetry analysis,
-        write a professional, easy-to-understand report suitable for a clinical setting.
-        
-        - Asymmetry Percentage: {asymmetry_percent}%
-        - Height Difference: {height_diff} mm
-        - Width Difference: {width_diff} mm
-        
-        Include:
-        - Summary of findings
-        - Possible causes (brief)
-        - Clinical significance
-        - Recommendations or next steps
-        """
-        
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-        )
-        
-        report = response.choices[0].message.content
-        st.success("✅ Report Generated Successfully!")
-        st.markdown(
-            f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
-            unsafe_allow_html=True
-        )
+        payload = {"inputs": prompt}
+        response = requests.post(API_URL, headers=headers, json=payload)
+        report = response.json()[0]["generated_text"]
+        st.success("✅ Report Generated!")
+        st.markdown(report)
 
 
 # --- Project Guide Section ---
