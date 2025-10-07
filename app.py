@@ -5,68 +5,57 @@ from ultralytics import YOLO
 from PIL import Image
 import io
 import base64
+import os
+import requests
+import time
 
-# --- Helper to encode images to base64 ---
+# ================================
+# Helper: Encode images to Base64
+# ================================
 def get_image_base64(image_path):
     with open(image_path, "rb") as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Page Config ---
+# ================================
+# Streamlit Page Config
+# ================================
 st.set_page_config(page_title="TMJ Symmetry Detection", page_icon="🦷", layout="wide")
 
-# --- CSS for Header, Team Cards, Buttons ---
+# ================================
+# CSS Styling
+# ================================
 st.markdown("""
 <style>
 /* Header */
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    top: 0; left: 0;
+    width: 100%; z-index: 999;
+    display: flex; align-items: center; justify-content: space-between;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     padding: 48px 28px 22px 28px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
 }
 .header h1 {
-    margin:0;
-    font-family: 'Playfair Display', serif;
-    font-size:36px;
-    letter-spacing:2px;
-    color:white;
+    margin:0; font-family: 'Playfair Display', serif;
+    font-size:36px; letter-spacing:2px; color:white;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 .header h3 {
-    margin:0;
-    font-family: 'Playfair Display', serif;
-    font-size:24px;
-    font-weight: normal;
-    color: #f0f0f0;
+    margin:0; font-family: 'Playfair Display', serif;
+    font-size:24px; font-weight: normal; color: #f0f0f0;
 }
 
-/* --- Responsive Team Section --- */
+/* Team Cards */
 .team-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    max-width: 1300px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 40px; margin-top: 30px; max-width: 1300px;
+    margin-left: auto; margin-right: auto;
 }
-
 .team-card {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    flex: 1 1 240px;
-    max-width: 280px;
-    text-align: center;
+    background: white; padding: 25px; border-radius: 20px;
+    flex: 1 1 240px; max-width: 280px; text-align: center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -74,50 +63,29 @@ st.markdown("""
     transform: translateY(-8px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-
 .team-img {
-    width: 160px; 
-    height: 160px; 
-    border-radius: 50%; 
-    object-fit: cover;
-    margin-bottom: 10px;
+    width: 160px; height: 160px; border-radius: 50%;
+    object-fit: cover; margin-bottom: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
-
 .team-name {
-    margin: 12px 0 6px 0;
-    color: #2a5298;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    margin: 12px 0 6px 0; color: #2a5298;
+    font-family: 'Playfair Display', serif; font-size: 18px;
 }
 .team-role {
-    color: gray;
-    font-size: 15px;
-    margin: 0;
+    color: gray; font-size: 15px; margin: 0;
 }
-
-/* Center alignment for Project Guide */
 .guide-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    display: flex; justify-content: center; margin-top: 25px;
 }
-
-/* Download button styling */
 .download-btn-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    display: flex; justify-content: center; margin-top: 25px;
 }
 div.stDownloadButton > button:first-child {
     background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    border-radius: 12px;
-    padding: 12px 32px;
-    font-size: 17px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+    color: white; border-radius: 12px;
+    padding: 12px 32px; font-size: 17px; font-weight: 600;
+    border: none; cursor: pointer;
     box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
     transition: all 0.3s ease-in-out;
 }
@@ -126,15 +94,15 @@ div.stDownloadButton > button:first-child:hover {
     transform: scale(1.08);
     box-shadow: 0 6px 18px rgba(42, 82, 152, 0.6);
 }
-
-/* Page Padding */
 .block-container {
     padding-top: 200px;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# --- Header ---
+# ================================
+# Header Section
+# ================================
 college_logo = get_image_base64("Dept logo (2).png")
 st.markdown(f"""
 <div class='header'>
@@ -147,66 +115,59 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- Main Title ---
+# ================================
+# Title
+# ================================
 st.markdown("<h2 style='text-align:center;'>🦷 TMJ Symmetry Detection</h2>", unsafe_allow_html=True)
 
-# --- Load YOLO Model ---
+# ================================
+# Load YOLO Model
+# ================================
 @st.cache_resource
 def load_model():
     return YOLO("best.pt")
 
 model = load_model()
 
-import os
-from PIL import Image
-import streamlit as st
-
-# --- About the Disease (reliable Streamlit layout using columns) ---
+# ================================
+# About the Disease Section
+# ================================
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
 
-# Local image filename (change to your file). If not found, fallback_url is used.
-local_img_path = "tmj_disease_image.jpg"   # <-- replace with your local file name if available
+local_img_path = "tmj_disease_image.jpg"
 fallback_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s"
 
-# Try to open local image
-pil_img = None
 if os.path.exists(local_img_path):
     try:
         pil_img = Image.open(local_img_path)
     except Exception:
         pil_img = None
+else:
+    pil_img = None
 
-# Create a centered outer container (adds side margins)
-outer_cols = st.columns([1, 3, 1])  # left spacer, middle content, right spacer
+outer_cols = st.columns([1, 3, 1])
 with outer_cols[1]:
-    # Two equal inner columns: left for image, right for description
     left_col, right_col = st.columns([1, 1])
-
     with left_col:
         if pil_img:
-            st.image(pil_img, use_container_width=True)  # ✅ updated parameter
+            st.image(pil_img, use_container_width=True)
         else:
-            st.image(fallback_url, use_container_width=True)  # ✅ updated parameter
-
+            st.image(fallback_url, use_container_width=True)
     with right_col:
-        text_html = """
+        st.markdown("""
         <div style="text-align:justify; font-size:16px; line-height:1.7; color:#333;">
             <p><strong>Temporomandibular Joint Disorder (TMJ Disorder)</strong> affects the joint connecting your jawbone to your skull.
             It can cause pain, stiffness, and difficulty in jaw movement. The disorder often arises from injury, arthritis,
-            or jaw misalignment, leading to <strong>asymmetry</strong> between the left and right joints.<br> Early detection of asymmetry using AI and image processing (like this project) can help identify
-            conditions such as <strong>Temporomandibular Joint Osteoarthritis (TMJOA)</strong> at an earlier stage,
-            improving treatment outcomes and preventing long-term complications.</p>
+            or jaw misalignment, leading to <strong>asymmetry</strong> between the left and right joints.<br><br>
+            Early detection using AI and image processing can help identify conditions such as 
+            <strong>Temporomandibular Joint Osteoarthritis (TMJOA)</strong> early, improving treatment outcomes and preventing long-term complications.</p>
         </div>
-        """
-        st.markdown(text_html, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-
-
-
-
-
-# --- File Uploader ---
+# ================================
+# Image Upload + YOLO Detection
+# ================================
 uploaded_file = st.file_uploader("Upload an X-ray Image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
@@ -214,8 +175,8 @@ if uploaded_file:
     image = cv2.imdecode(file_bytes, 1)
 
     results = model.predict(source=image, conf=0.25)
-    asymmetry_percent, width_diff, height_diff = None, None, None
     processed_image = image.copy()
+    asymmetry_percent, width_diff, height_diff = None, None, None
 
     for result in results:
         boxes = result.boxes.xyxy.cpu().numpy()
@@ -267,11 +228,9 @@ if uploaded_file:
             """
         st.markdown(status_html, unsafe_allow_html=True)
 
-        # Display Processed Image
         image_rgb = cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB)
         st.image(image_rgb, caption="Processed Image", use_container_width=True)
 
-        # Prepare Download Button
         buf = io.BytesIO()
         Image.fromarray(image_rgb).save(buf, format="JPEG")
         buf.seek(0)
@@ -280,127 +239,62 @@ if uploaded_file:
         st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
         st.markdown("</div>", unsafe_allow_html=True)
 
-import streamlit as st
-from openai import OpenAI  # or use other LLMs if preferred
-
-# --- AI Report Section ---
-import streamlit as st
-import requests
-import time
-
-# -------------------------------
-# Hugging Face Secure API Setup
-# -------------------------------
+# ================================
+# AI Report Section (Hugging Face)
+# ================================
 try:
     hf_token = st.secrets["HF_TOKEN"]
 except KeyError:
-    st.error("🚨 Hugging Face API key not found! Please add it in Streamlit Cloud → Manage App → Edit secrets.")
-    st.stop()
+    st.warning("⚠️ Add your Hugging Face API key in Streamlit secrets to enable report generation.")
+    hf_token = None
 
-API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-headers = {"Authorization": f"Bearer {hf_token}"}
+if hf_token:
+    API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
+    headers = {"Authorization": f"Bearer {hf_token}"}
 
-# -------------------------------
-# Example TMJ analysis data
-# -------------------------------
-asymmetry_percent = 12.5
-height_diff = 2.3
-width_diff = 1.8
+    st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center; color:#1e3c72;'>🧠 AI-Generated Diagnostic Report</h3>", unsafe_allow_html=True)
 
-st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align:center; color:#1e3c72;'>🧠 AI-Generated Diagnostic Report</h3>", unsafe_allow_html=True)
+    if st.button("🤖 Generate AI Report"):
+        if asymmetry_percent is not None:
+            prompt = f"""
+            You are an AI medical assistant. Based on TMJ asymmetry analysis:
+            - Asymmetry: {asymmetry_percent:.2f}%
+            - Width Diff: {width_diff:.2f}%
+            - Height Diff: {height_diff:.2f}%
 
-st.write(f"**Asymmetry Percentage:** {asymmetry_percent}%")
-st.write(f"**Height Difference:** {height_diff} mm")
-st.write(f"**Width Difference:** {width_diff} mm")
+            Write a short clinical-style report including:
+            - Summary of findings
+            - Possible causes
+            - Clinical significance
+            - Recommendations
+            """
 
-prompt = f"""
-You are an AI medical assistant. Based on the following TMJ asymmetry analysis,
-generate a short diagnostic-style report suitable for a clinical setting.
-
-Findings:
-- Asymmetry Percentage: {asymmetry_percent}%
-- Height Difference: {height_diff} mm
-- Width Difference: {width_diff} mm
-
-Include:
-- Summary of findings
-- Possible causes (brief)
-- Clinical significance
-- Recommendations or next steps
-"""
-
-# -------------------------------
-# Generate button
-# -------------------------------
-if st.button("🤖 Generate AI Report"):
-    with st.spinner("Generating report using Hugging Face model..."):
-        payload = {"inputs": prompt}
-
-        for attempt in range(5):
-            try:
-                response = requests.post(API_URL, headers=headers, json=payload, timeout=60)
-
-                # Handle non-JSON responses safely
-                try:
-                    data = response.json()
-                except Exception:
-                    st.warning("⚠️ Model response is not in JSON format (possibly still loading). Retrying...")
-                    st.text(response.text[:500])  # show first 500 chars of raw message
-                    time.sleep(10)
-                    continue
-
-                # If Hugging Face says model is loading
-                if isinstance(data, dict) and "error" in data and "loading" in data["error"].lower():
-                    st.info("🕐 Model is loading... waiting 10 seconds before retrying.")
-                    time.sleep(10)
-                    continue
-
-                # If the model output is valid text
-                if isinstance(data, list) and len(data) > 0 and "generated_text" in data[0]:
-                    report = data[0]["generated_text"].strip()
+            with st.spinner("Generating report..."):
+                response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
+                data = response.json()
+                if isinstance(data, list) and "generated_text" in data[0]:
+                    report = data[0]["generated_text"]
                     st.success("✅ Report Generated Successfully!")
                     st.markdown(
-                        f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
+                        f"<div style='background:#f9f9f9;padding:20px;border-radius:10px;'>{report}</div>",
                         unsafe_allow_html=True
                     )
-                    break
-
-                # If no valid output detected
-                st.error("⚠️ Unexpected Hugging Face response format.")
-                st.text(data)
-                break
-
-            except requests.exceptions.RequestException as e:
-                st.error(f"🚨 Network or API error: {e}")
-                time.sleep(5)
+                else:
+                    st.error("⚠️ Unexpected response format. Try again later.")
         else:
-            st.error("❌ Failed to generate report after multiple attempts. Please try again later.")
+            st.warning("Upload and process an image first.")
 
+# ================================
+# Project Team Section
+# ================================
+st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
 
-import streamlit as st
-import base64
-
-# --- Helper to encode images to base64 ---
-def get_image_base64(image_path):
-    with open(image_path, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-# --- Team Images ---
 nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
 guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
-st.markdown("""
-<style>
-/* Center alignment only for Project Guide section */
-.guide-container {
-    display: flex;
-    justify-content: center;   /* Horizontally center */
-    margin-top: 25px;
-}
-</style>
-""", unsafe_allow_html=True)
+
+guide_html = f"""
 <div class='guide-container'>
     <div class='team-card'>
         <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
@@ -408,12 +302,8 @@ st.markdown("""
         <p class='team-role'>CSE Department, AI & ML</p>
     </div>
 </div>
-
-# --- Project Team Section ---
-st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
-
-nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
-rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
+"""
+st.markdown(guide_html, unsafe_allow_html=True)
 
 team_html = f"""
 <div class='team-container'>
@@ -433,7 +323,7 @@ team_html = f"""
         <p class='team-role'>4MC22CI019</p>
     </div>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <img src='https://cdn-icons-png.flaticon.com/512/3011/3011270.png' class='team-img'>
         <h4 class='team-name'>Pratham M. Jain</h4>
         <p class='team-role'>4MC22CI023</p>
     </div>
