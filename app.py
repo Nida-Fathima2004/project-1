@@ -337,39 +337,45 @@ if st.button("🤖 Generate AI Report"):
     with st.spinner("Generating report using Hugging Face model..."):
         payload = {"inputs": prompt}
 
-        # Try up to 3 times (to handle "Model is loading" state)
-        for attempt in range(3):
-            response = requests.post(API_URL, headers=headers, json=payload)
-            
+        for attempt in range(5):
             try:
-                data = response.json()
-            except Exception:
-                st.error("⚠️ Could not decode Hugging Face response.")
-                st.text(response.text)
-                st.stop()
+                response = requests.post(API_URL, headers=headers, json=payload, timeout=60)
 
-            # Model is loading (Hugging Face sometimes returns this message)
-            if isinstance(data, dict) and "error" in data and "loading" in data["error"].lower():
-                st.info("🕐 Model is loading on Hugging Face... waiting 10 seconds.")
-                time.sleep(10)
-                continue
+                # Handle non-JSON responses safely
+                try:
+                    data = response.json()
+                except Exception:
+                    st.warning("⚠️ Model response is not in JSON format (possibly still loading). Retrying...")
+                    st.text(response.text[:500])  # show first 500 chars of raw message
+                    time.sleep(10)
+                    continue
 
-            # Successful response
-            if isinstance(data, list) and "generated_text" in data[0]:
-                report = data[0]["generated_text"]
-                st.success("✅ Report Generated Successfully!")
-                st.markdown(
-                    f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
-                    unsafe_allow_html=True
-                )
+                # If Hugging Face says model is loading
+                if isinstance(data, dict) and "error" in data and "loading" in data["error"].lower():
+                    st.info("🕐 Model is loading... waiting 10 seconds before retrying.")
+                    time.sleep(10)
+                    continue
+
+                # If the model output is valid text
+                if isinstance(data, list) and len(data) > 0 and "generated_text" in data[0]:
+                    report = data[0]["generated_text"].strip()
+                    st.success("✅ Report Generated Successfully!")
+                    st.markdown(
+                        f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
+                        unsafe_allow_html=True
+                    )
+                    break
+
+                # If no valid output detected
+                st.error("⚠️ Unexpected Hugging Face response format.")
+                st.text(data)
                 break
-            else:
-                # Unexpected structure or no text returned
-                st.error("⚠️ Unexpected API response format.")
-                st.text(response.text)
-                break
+
+            except requests.exceptions.RequestException as e:
+                st.error(f"🚨 Network or API error: {e}")
+                time.sleep(5)
         else:
-            st.error("❌ Model did not respond after several attempts.")
+            st.error("❌ Failed to generate report after multiple attempts. Please try again later.")
 
 
 # --- Project Team Section ---
