@@ -157,6 +157,32 @@ def load_model():
 
 model = load_model()
 
+# --- Disease Information Section ---
+st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
+
+# Example: TMJ Disorder info section with inline styling
+disease_img = get_image_base64("tmj_disease_image.jpg")  # Replace with your image filename
+
+disease_html = f"""
+<div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
+    
+    <img src='data:image/jpeg;base64,{disease_img}' 
+         style="width:350px; height:auto; border-radius:15px; margin:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    
+    <div style="max-width:600px; text-align:justify; margin:15px; font-size:17px; line-height:1.6; color:#333;">
+        <p>
+            <b>Temporomandibular Joint Disorder (TMJ Disorder)</b> affects the joint connecting your jawbone to your skull.
+            It can cause pain, stiffness, and difficulty in jaw movement. The disorder often arises from injury, arthritis,
+            or jaw misalignment, leading to <b>asymmetry</b> between the left and right joints. 
+            Detecting this asymmetry early using AI and image processing can help prevent long-term complications.
+        </p>
+    </div>
+</div>
+"""
+st.markdown(disease_html, unsafe_allow_html=True)
+
+
 # --- File Uploader ---
 uploaded_file = st.file_uploader("Upload an X-ray Image", type=["jpg", "jpeg", "png"])
 
