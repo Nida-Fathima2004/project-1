@@ -166,8 +166,8 @@ disease_img = get_image_base64("Dept logo (2).png")  # Replace with your image f
 
 disease_html = f"""
 <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
-    #data:image/jpeg;base64,{disease_img}
-    <img src='data:image/jpeg;base64,{disease_img}' 
+   
+    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s' 
          style="width:350px; height:auto; border-radius:15px; margin:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
     
     <div style="max-width:600px; text-align:justify; margin:15px; font-size:17px; line-height:1.6; color:#333;">
