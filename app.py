@@ -157,14 +157,15 @@ def load_model():
 
 model = load_model()
 
-# --- Disease Information Section ---
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
 
-disease_html = """
+disease_img = get_image_base64("condylar bone.jpg")  # or your local image file
+
+disease_html = f"""
 <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
    
-    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s' 
+    <img src='data:image/png;base64,{disease_img}' 
          style="width:350px; height:auto; border-radius:15px; margin:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
     
     <div style="max-width:600px; text-align:justify; margin:15px; font-size:17px; line-height:1.6; color:#333;">
@@ -178,6 +179,7 @@ disease_html = """
 </div>
 """
 st.markdown(disease_html, unsafe_allow_html=True)
+
 
 
 
