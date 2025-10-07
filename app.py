@@ -309,7 +309,7 @@ guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
 guide_html = f"""
 <div class='guide-container'>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6rKwDbEN_M9FCcve-ozbDkUUn6VkEZ7xfVw&s' class='team-img'>
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>CSE Department, AI & ML</p>
     </div>
@@ -335,7 +335,7 @@ team_html = f"""
         <p class='team-role'>4MC22CI019</p>
     </div>
     <div class='team-card'>
-        <img src='https://cdn-icons-png.flaticon.com/512/3011/3011270.png' class='team-img'>
+        <img src='data:image/jpeg;base64,{guide_img}' class='team-img'>
         <h4 class='team-name'>Pratham M. Jain</h4>
         <p class='team-role'>4MC22CI023</p>
     </div>
