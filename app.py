@@ -161,10 +161,7 @@ model = load_model()
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
 
-# Example: TMJ Disorder info section with inline styling
-disease_img = get_image_base64("Dept logo (2).png")  # Replace with your image filename
-
-disease_html = f"""
+disease_html = """
 <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:30px;">
    
     <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s' 
@@ -181,6 +178,7 @@ disease_html = f"""
 </div>
 """
 st.markdown(disease_html, unsafe_allow_html=True)
+
 
 
 # --- File Uploader ---
