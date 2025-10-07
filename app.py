@@ -280,6 +280,57 @@ if uploaded_file:
         st.download_button("📥 Download Processed Image", buf.getvalue(), "tmj_result.jpg", "image/jpeg")
         st.markdown("</div>", unsafe_allow_html=True)
 
+import streamlit as st
+from openai import OpenAI  # or use other LLMs if preferred
+
+# --- AI Report Section ---
+st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'>AI-Generated Diagnostic Report</h3>", unsafe_allow_html=True)
+
+# Suppose your previous analysis produced these values:
+asymmetry_percent = 12.5  # example
+height_diff = 2.3
+width_diff = 1.8
+
+# Show results first
+st.write(f"**Asymmetry Percentage:** {asymmetry_percent}%")
+st.write(f"**Height Difference:** {height_diff} mm")
+st.write(f"**Width Difference:** {width_diff} mm")
+
+# Add a button to generate the report
+if st.button("🧠 Generate AI Report"):
+    with st.spinner("Generating report..."):
+        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])  # ensure your key is in .streamlit/secrets.toml
+        
+        # Construct a prompt
+        prompt = f"""
+        You are an expert medical AI assistant. Based on the following jaw asymmetry analysis,
+        write a professional, easy-to-understand report suitable for a clinical setting.
+        
+        - Asymmetry Percentage: {asymmetry_percent}%
+        - Height Difference: {height_diff} mm
+        - Width Difference: {width_diff} mm
+        
+        Include:
+        - Summary of findings
+        - Possible causes (brief)
+        - Clinical significance
+        - Recommendations or next steps
+        """
+        
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        
+        report = response.choices[0].message.content
+        st.success("✅ Report Generated Successfully!")
+        st.markdown(
+            f"<div style='background-color:#f9f9f9; padding:20px; border-radius:10px; line-height:1.6;'>{report}</div>",
+            unsafe_allow_html=True
+        )
+
+
 # --- Project Guide Section ---
 st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3c72;'>Project Guide</h3>", unsafe_allow_html=True)
 guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
