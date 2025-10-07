@@ -271,8 +271,20 @@ if hf_token:
             """
 
             with st.spinner("Generating report..."):
-                response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
-                data = response.json()
+                response = requests.get("YOUR_URL_HERE")
+
+                # ✅ Safe JSON handling
+                if response.status_code == 200:
+                    try:
+                        data = response.json()
+                        st.write("✅ Data loaded successfully:", data)
+                    except ValueError:
+                        st.error("❌ The server did not return valid JSON.")
+                        st.text(response.text)  # show raw text for debugging
+                else:
+                    st.error(f"❌ Request failed with status code: {response.status_code}")
+                    st.text(response.text)
+
                 if isinstance(data, list) and "generated_text" in data[0]:
                     report = data[0]["generated_text"]
                     st.success("✅ Report Generated Successfully!")
