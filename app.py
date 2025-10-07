@@ -157,38 +157,52 @@ def load_model():
 
 model = load_model()
 
+import os
+from PIL import Image
+
+# --- About the Disease (reliable Streamlit layout using columns) ---
 st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center; color:#1e3c72;'>About the Disease</h3>", unsafe_allow_html=True)
 
-# Example image (you can replace with your own or a local base64 image)
-disease_html = """
-<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; 
-            margin-top: 30px; padding: 20px; border-radius: 15px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); background-color: #f9faff;">
+# Local image filename (change to your file). If not found, fallback_url is used.
+local_img_path = "tmj_disease_image.jpg"   # <-- replace with your local file name if available
+fallback_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s"
 
-    <div style="flex: 1; min-width: 300px; text-align: center;">
-        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl5OMDN4f6Hiii5mM-sbjBNUtgWvVkin76RQ&s' 
-             style="width: 90%; max-width: 350px; height: auto; border-radius: 15px; 
-                    margin: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-    </div>
+# Try to open local image
+pil_img = None
+if os.path.exists(local_img_path):
+    try:
+        pil_img = Image.open(local_img_path)
+    except Exception as e:
+        pil_img = None
 
-    <div style="flex: 1; min-width: 300px; margin: 10px; text-align: justify; 
-                font-size: 17px; line-height: 1.7; color: #333;">
-        <p>
-            <b>Temporomandibular Joint Disorder (TMJ Disorder)</b> affects the joint connecting your jawbone 
-            to your skull. It can cause pain, stiffness, and difficulty in jaw movement. 
-            The disorder often arises from injury, arthritis, or jaw misalignment, leading 
-            to <b>asymmetry</b> between the left and right joints. 
-        </p>
-        <p>
-            Detecting this asymmetry early using <b>AI and image processing</b> can help 
-            identify <b>Temporomandibular Joint Osteoarthritis (TMJOA)</b> in its initial stages, 
-            preventing long-term complications and improving treatment outcomes.
-        </p>
-    </div>
-</div>
-"""
-st.markdown(disease_html, unsafe_allow_html=True)
+# Create a centered outer container (adds side margins)
+outer_cols = st.columns([1, 3, 1])  # left spacer, middle content, right spacer
+with outer_cols[1]:
+    # Two equal inner columns: left for image, right for description
+    left_col, right_col = st.columns([1, 1])
+
+    with left_col:
+        if pil_img:
+            # width will adapt to column size and remain responsive
+            st.image(pil_img, use_column_width=True)
+        else:
+            st.image(fallback_url, use_column_width=True)
+
+    with right_col:
+        text_html = """
+        <div style="text-align:justify; font-size:16px; line-height:1.7; color:#333;">
+            <p><strong>Temporomandibular Joint Disorder (TMJ Disorder)</strong> affects the joint connecting your jawbone to your skull.
+            It can cause pain, stiffness, and difficulty in jaw movement. The disorder often arises from injury, arthritis,
+            or jaw misalignment, leading to <strong>asymmetry</strong> between the left and right joints.</p>
+
+            <p>Early detection of asymmetry using AI and image processing (like this project) can help identify
+            conditions such as <strong>Temporomandibular Joint Osteoarthritis (TMJOA)</strong> at an earlier stage,
+            improving treatment outcomes and preventing long-term complications.</p>
+        </div>
+        """
+        st.markdown(text_html, unsafe_allow_html=True)
+
 
 
 
