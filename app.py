@@ -347,3 +347,5 @@ team_html = f"""
 </div>
 """
 st.markdown(team_html, unsafe_allow_html=True)
+st.markdown("<hr style='margin:40px 0;'>", unsafe_allow_html=True)
+
