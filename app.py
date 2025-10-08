@@ -320,7 +320,7 @@ guide_html = f"""
 """
 st.markdown(guide_html, unsafe_allow_html=True)
 
-st.markdown("<h3 style='text-align:center; color:#1e3c72;'>Project Team</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center; color:#1e3c72;'><br>Project Team</h3>", unsafe_allow_html=True)
 
 team_html = f"""
 <div class='team-container'>
