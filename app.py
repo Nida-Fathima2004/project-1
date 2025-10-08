@@ -325,7 +325,7 @@ team_html = f"""
         <p class='team-role'>4MC22CI003</p>
     </div>
     <div class='team-card'>
-        <img src='data:image/jpeg;base64,{keerthan}' class='team-img'>
+        <img src='data:image/jpeg;base64,{keerthana}' class='team-img'>
         <h4 class='team-name'>Keerthana H. N.</h4>
         <p class='team-role'>4MC22CI013</p>
     </div>
