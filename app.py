@@ -325,7 +325,7 @@ team_html = f"""
         <p class='team-role'>4MC22CI003</p>
     </div>
     <div class='team-card'>
-        <img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' class='team-img'>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkXMn8gfM1nVj_jMD8_dBTb_xY5Utgp2t28Q&s' class='team-img'>
         <h4 class='team-name'>Keerthana H. N.</h4>
         <p class='team-role'>4MC22CI013</p>
     </div>
