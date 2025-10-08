@@ -9,6 +9,7 @@ import os
 import requests
 import time
 
+
 # ================================
 # Helper: Encode images to Base64
 # ================================
