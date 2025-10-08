@@ -305,7 +305,7 @@ st.markdown("<hr style='margin:40px 0;'><h3 style='text-align:center; color:#1e3
 nida_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.57.14 PM.jpeg")
 rahul_img = get_image_base64("WhatsApp Image 2025-10-06 at 10.13.18 PM.jpeg")
 guide_img = get_image_base64("WhatsApp Image 2025-10-06 at 9.56.43 PM.jpeg")
-keerthan= get_image_base64("WhatsApp Image 2025-10-08 at 4.36.32 PM.jpeg")
+keerthana= get_image_base64("WhatsApp Image 2025-10-08 at 4.36.32 PM.jpeg")
 guide_html = f"""
 <div class='guide-container'>
     <div class='team-card'>
