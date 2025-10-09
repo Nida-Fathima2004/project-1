@@ -316,6 +316,11 @@ guide_html = f"""
         <h4 class='team-name'>Prof. [Guide Name]</h4>
         <p class='team-role'>CSE Department, AI & ML</p>
     </div>
+    <div class='team-card'>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkXMn8gfM1nVj_jMD8_dBTb_xY5Utgp2t28Q&s' class='team-img'>
+        <h4 class='team-name'>Prof. [Guide Name]</h4>
+        <p class='team-role'>CSE Department, AI & ML</p>
+    </div>
 </div>
 """
 st.markdown(guide_html, unsafe_allow_html=True)
